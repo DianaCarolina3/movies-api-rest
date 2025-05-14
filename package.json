@@ -2,10 +2,10 @@
   "name": "movies-api-rest",
   "version": "1.0.0",
   "description": "javascript, nodejs",
-  "main": "api/index.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node api/index.js",
-    "dev": "node --watch api/index.js"
+    "start": "node index.js",
+    "dev": "node --watch index.js"
   },
   "repository": {
     "type": "git",

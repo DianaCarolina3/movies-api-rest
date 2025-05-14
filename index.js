@@ -1,11 +1,10 @@
 const express = require('express')
 const crypto = require('node:crypto')
 const cors = require('cors')
-const { createServer } = require('@vercel/node') // Solo si usas middleware externo
-const movies = require('../movies.json')
-const { validateMovie, validatePartialMovie } = require('../schema/schema.js')
+const movies = require('./movies.json')
+const { validateMovie, validatePartialMovie } = require('./schema/schema.js')
 
-// const PORT = process.env.PORT ?? 3000
+const PORT = process.env.PORT ?? 3000
 
 const app = express()
 app.use(express.json())
@@ -133,11 +132,8 @@ app.delete('/movies/:id', (req, res) => {
 //   res.send(200)
 // })
 
-//En lugar de usar app.listen(), simplemente exportas la instancia de express y Vercel se encargará de ejecutarla como una función serverless.
-// const server = app.listen(PORT, () => {
-//   console.log(
-//     `Server listening on the port http://localhost:${server.address().port}`,
-//   )
-// })
-
-module.exports = app
+const server = app.listen(PORT, () => {
+  console.log(
+    `Server listening on the port http://localhost:${server.address().port}`,
+  )
+})
