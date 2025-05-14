@@ -1,17 +1,18 @@
 const express = require('express')
 const crypto = require('node:crypto')
-const movies = require('./movies.json')
-const { validateMovie, validatePartialMovie } = require('./schema/schema.js')
+const cors = require('cors')
+const movies = require('../movies.json')
+const { validateMovie, validatePartialMovie } = require('../schema/schema.js')
 
 const PORT = process.env.PORT ?? 3000
 
 const app = express()
 app.use(express.json())
-// Elimina del header la info de la tecnologia usada por seguridad
-app.disable('x-powered-by')
 // el paquete cors soluciona en todos los origins '*'
 // sin embargo tiene opciones para limitarlo
-//app.use(cors())
+app.use(cors())
+// Elimina del header la info de la tecnologia usada por seguridad
+app.disable('x-powered-by')
 
 // Metodos normales: GET/HEAD/POST
 // Metodos complejos: PUT/PATCH/DELETE
@@ -19,22 +20,22 @@ app.disable('x-powered-by')
 // CORS PRE-Fligth
 // El CORS PRE-Fligth usa OPTIONS (peticion especial previa) en los metodos complejos
 
-const ACCEPTED_ORIGINS = [
-  'http://localhost:8080',
-  'http://localhost:3000',
-  'https://movies.com',
-]
+// const ACCEPTED_ORIGINS = [
+//   'http://localhost:8080',
+//   'http://localhost:3000',
+//   'https://movies.com',
+// ]
 
 // Todos los recursos que sean MOVIES se identifican con /movies
 // filtra peliculas por genero
 app.get('/movies', (req, res) => {
-  //CORS
-  const origin = req.header('origin')
-  // si la peticion es del mismo origin no lo muestra en el header
-  if (ACCEPTED_ORIGINS.includes(origin) || !origin) {
-    // Todos los origenes diferente al nuestro esta permitido con '*'
-    res.header('Access-Control-Allow-Origin', origin)
-  }
+  // //CORS
+  // const origin = req.header('origin')
+  // // si la peticion es del mismo origin no lo muestra en el header
+  // if (ACCEPTED_ORIGINS.includes(origin) || !origin) {
+  //   // Todos los origenes diferente al nuestro esta permitido con '*'
+  //   res.header('Access-Control-Allow-Origin', origin)
+  // }
 
   const { genre } = req.query
 
@@ -109,30 +110,32 @@ app.delete('/movies/:id', (req, res) => {
   // DELETE MOVIE
   const { id } = req.params
 
-  const indexMovie = movies.findIndex((movie) => movie.id === id)
+  const movieIndex = movies.findIndex((movie) => movie.id === id)
 
-  if (indexMovie === -1) {
+  if (movieIndex === -1) {
     return res.status(404).json({ message: 'Movie not found' })
   }
 
-  movies.splice(indexMovie, 1)
+  movies.splice(movieIndex, 1)
 
-  res.json({ message: 'Movie deleted' })
+  return res.json({ message: 'Movie deleted' })
 })
 
-app.options('/movies/:id', (req, res) => {
-  const origin = req.header('origin')
-
-  if (ACCEPTED_ORIGINS.includes(origin) || !origin) {
-    res.header('Access-Control-Allow-Origin', origin)
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE')
-  }
-
-  res.send(200)
-})
+// app.options('/movies/:id', (req, res) => {
+//   const origin = req.header('origin')
+//
+//   if (ACCEPTED_ORIGINS.includes(origin) || !origin) {
+//     res.header('Access-Control-Allow-Origin', origin)
+//     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE')
+//   }
+//
+//   res.send(200)
+// })
 
 const server = app.listen(PORT, () => {
   console.log(
     `Server listening on the port http://localhost:${server.address().port}`,
   )
 })
+
+module.exports = app
