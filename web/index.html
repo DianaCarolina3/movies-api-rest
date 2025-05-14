@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Probrar API REST</title>
+  <title>Probar API Rest</title>
   <style>
-    article {
-        border: 1px solid #ccc;
-        padding: 1rem;
-        margin-bottom: 1rem;
-    }
+      article {
+          border: 1px solid #ccc;
+          padding: 1rem;
+          margin-bottom: 1rem;
+      }
 
-    img {
-        height: auto;
-        width: 320px;
-        max-width: 100%;
-    }
+      img {
+          height: auto;
+          width: 320px;
+          max-width: 100%;
+      }
   </style>
   <script type="module">
     fetch('http://localhost:3000/movies')
@@ -25,8 +25,10 @@
           return `
             <article data-id="${movie.id}">
               <h2>${movie.title}</h2>
-              <p>${movie.year}</p>
               <img src="${movie.poster}" alt="${movie.title}">
+              <p>${movie.year}</p>
+
+              <button>Eliminar</button>
             </article>
           `
         }).join('')
@@ -44,14 +46,13 @@
                   article.remove()
                 }
               })
-            }
-        })
+          }
 
+        })
       })
   </script>
 </head>
 <body>
-  <main></main>
+<main></main>
 </body>
 </html>
-
