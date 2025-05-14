@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/DianaCarolina3/movies-api-rest#readme",
   "dependencies": {
+    "@vercel/node": "^5.1.16",
     "cors": "2.8.5",
     "express": "5.1.0",
     "zod": "3.24.4"
