@@ -132,10 +132,11 @@ app.delete('/movies/:id', (req, res) => {
 //   res.send(200)
 // })
 
-const server = app.listen(PORT, () => {
-  console.log(
-    `Server listening on the port http://localhost:${server.address().port}`,
-  )
-})
+//En lugar de usar app.listen(), simplemente exportas la instancia de express y Vercel se encargará de ejecutarla como una función serverless.
+// const server = app.listen(PORT, () => {
+//   console.log(
+//     `Server listening on the port http://localhost:${server.address().port}`,
+//   )
+// })
 
 module.exports = app
