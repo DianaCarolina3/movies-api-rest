@@ -1,0 +1,33 @@
+{
+  "name": "movies-api-rest",
+  "version": "1.0.0",
+  "description": "javascript, nodejs",
+  "main": "app.js",
+  "scripts": {
+    "dev": "node --watch app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DianaCarolina3/movies-api-rest.git"
+  },
+  "keywords": [
+    "javascript",
+    "nodejs",
+    "express"
+  ],
+  "author": "Diana Campuzano",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DianaCarolina3/movies-api-rest/issues"
+  },
+  "homepage": "https://github.com/DianaCarolina3/movies-api-rest#readme",
+  "dependencies": {
+    "cors": "2.8.5",
+    "express": "5.1.0",
+    "zod": "3.24.4"
+  },
+  "devDependencies": {
+    "eslint": "9.24.0",
+    "prettier": "3.5.3"
+  }
+}
