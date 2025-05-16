@@ -1,5 +1,5 @@
 // Validacion de esquemas con typescript ejecutado en runtime
-const zShema = require('zod')
+import zShema from 'zod'
 
 // Esquema de la crecion de una pelicula
 const movieSchema = zShema.object({
@@ -38,15 +38,10 @@ const movieSchema = zShema.object({
   rate: zShema.number().min(0).max(10).default(5),
 })
 
-function validateMovie(object) {
+export function validateMovie(object) {
   return movieSchema.safeParse(object)
 }
 
-function validatePartialMovie(object) {
+export function validatePartialMovie(object) {
   return movieSchema.partial().safeParse(object)
-}
-
-module.exports = {
-  validateMovie,
-  validatePartialMovie,
 }
