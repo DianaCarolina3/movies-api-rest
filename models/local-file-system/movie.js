@@ -12,6 +12,9 @@ import { randomUUID } from 'node:crypto'
 // Podemos hacerlo como clases
 // Contrato con Clases: Otras clases pueden "heredar" de la clase base, implementando los métodos y propiedades necesarios para cumplir con el contrato
 // Nos ayudara a tipar en ts
+
+// con los metodos estaticos función definida dentro de una clase que significa que podemos usarlos sin necesidad de crear una instancia de la clase
+// Se llama directamente a la clase, en lugar de a un objeto, y puede ser útil para tareas que no requieren acceder a los atributos de un objeto específico
 export class MovieModel {
   //({ genre }) lo pasamos como objeto porque permite extenderlo mas facil y heredarlo
   static async getAll({ genre }) {

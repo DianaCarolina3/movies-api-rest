@@ -5,10 +5,10 @@ GET http://localhost:3000
 GET http://localhost:3000/movies
 
 ### GET movie for id
-GET http://localhost:3000/movies/dcdd0fad-a94c-4810-8acc-5f108d3b18c3
+GET http://localhost:3000/movies/91e3663c-34d5-11f0-bd7c-f7e596407eb7
 
 ### GET all movies for one genre
-GET http://localhost:3000/movies?genre=drama
+GET http://localhost:3000/movies?genre=ActiOn
 
 ### POST a movie
 POST http://localhost:3000/movies
@@ -16,26 +16,32 @@ Content-Type: application/json
 
 {
   "sql": "SELECT * FROM users",
-  "title": "The Godfather",
-  "year": 1975,
-  "director": "Francis Ford Coppola",
-  "duration": 175,
-  "poster": "https://img.fruugo.com/product/4/49/14441494_max.jpg",
+  "title": "Top Gun: Maverick",
+  "year": 2021,
+  "director": "Joseph Kosinski",
+  "duration": 171,
+  "poster": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTb0I81g39NGDx0sKP5F_DECCsdzoOwh9MVUD0PLSVvQpf3rpIM",
   "genre": [
-    "Crime",
-    "Drama"
+    "Drama",
+    "Action",
+    "Romance"
   ]
 }
 
 ### PATCH update a movie, une part of the movie
-PATCH http://localhost:3000/movies/dcdd0fad-a94c-4810-8acc-5f108d3b18c3
+PATCH http://localhost:3000/movies/08531012-36be-11f0-a909-80327acf9eaa
 Content-Type: application/json
 
 {
-  "id": "34535",
-  "title": "The Hello",
-  "year": 1995
+  "id": "082b283a-3732-11f0-ad89-8debf50a5072",
+  "title": "The Hello movie",
+  "year": 1972,
+  "poster": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcTC5bFSkuyK5Kn9RT1dnOvPmV2R_3NixiXw&s",
+  "genre": [
+    "Drama",
+    "Action"
+  ]
 }
 
 ### DELETE a movie for id
-DELETE http://localhost:3000/movies/dcdd0fad-a94c-4810-8acc-5f108d3b18c3
+DELETE http://localhost:3000/movies/020e815c-376b-11f0-ad89-8debf50a5072

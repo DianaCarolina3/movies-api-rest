@@ -2,17 +2,21 @@ import { Router } from 'express'
 import { MovieController } from '../controllers/movies.js'
 // en ESmodule no podemos importar json tal cual, hay que especificar
 
-const router = Router()
+export const createMovieRouter = ({ movieModel }) => {
+  const router = Router()
 
-// filtra peliculas por genero o si no las devuelve todas
-router.get('/', MovieController.getAll)
-// Recuperar pelicula por id
-router.get('/:id', MovieController.getById)
-// Crear peliculas
-router.post('/', MovieController.create)
-// Actualizar una parte de la movie
-router.patch('/:id', MovieController.update)
-// Eliminar pelicula por id
-router.delete('/:id', MovieController.delete)
+  const movieController = new MovieController({ movieModel })
 
-export default router
+  // filtra peliculas por genero o si no las devuelve todas
+  router.get('/', movieController.getAll)
+  // Recuperar pelicula por id
+  router.get('/:id', movieController.getById)
+  // Crear peliculas
+  router.post('/', movieController.create)
+  // Actualizar una parte de la movie
+  router.patch('/:id', movieController.update)
+  // Eliminar pelicula por id
+  router.delete('/:id', movieController.delete)
+
+  return router
+}

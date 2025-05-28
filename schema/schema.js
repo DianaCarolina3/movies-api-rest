@@ -21,13 +21,16 @@ const movieSchema = zShema.object({
       [
         'Action',
         'Adventure',
+        'Animation',
+        'Biography',
         'Crime',
-        'Comedy',
         'Drama',
         'Fantasy',
+        'Romance',
+        'Sci-Fi',
+        'Comedy',
         'Horror',
         'Thriller',
-        'Sci-Fi',
       ],
       {
         invalid_type_error: 'Movie genre must be a string',
