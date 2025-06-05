@@ -4,7 +4,7 @@ import { corsMiddleware } from './middlewares/cors.js'
 import * as path from 'node:path'
 import 'dotenv/config.js'
 
-export const createServer = ({ movieModel }) => {
+const createServer = ({ movieModel }) => {
   const PORT = process.env.PORT ?? 4000
 
   const app = express()
@@ -44,3 +44,5 @@ export const createServer = ({ movieModel }) => {
     )
   })
 }
+
+export { createServer }
