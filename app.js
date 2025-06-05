@@ -36,6 +36,8 @@ export const createServer = ({ movieModel }) => {
   //   res.send(200)
   // })
 
+  console.log('🟡 Inicializando servidor...')
+
   const server = app.listen(PORT, () => {
     console.log(
       `Server listening on the port http://localhost:${server.address().port}`,
