@@ -4,7 +4,7 @@ import { corsMiddleware } from './middlewares/cors.js'
 import * as path from 'node:path'
 
 export const createServer = ({ movieModel }) => {
-  const PORT = process.env.PORT ?? 3000
+  const PORT = process.env.PORT || 3000
 
   const app = express()
 
