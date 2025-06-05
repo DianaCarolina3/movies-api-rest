@@ -5,7 +5,7 @@ import * as path from 'node:path'
 import 'dotenv/config.js'
 
 export const createServer = ({ movieModel }) => {
-  const PORT = process.env.PORT ?? 3000
+  const PORT = process.env.PORT ?? 4000
 
   const app = express()
 

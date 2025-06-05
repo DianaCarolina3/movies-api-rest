@@ -1,17 +1,17 @@
 ### GET request to server
-GET http://localhost:3000
+GET http://localhost:4000
 
 ### GET all movies
-GET http://localhost:3000/movies
+GET http://localhost:4000/movies
 
 ### GET movie for id
-GET http://localhost:3000/movies/91e3663c-34d5-11f0-bd7c-f7e596407eb7
+GET http://localhost:4000/movies/91e3663c-34d5-11f0-bd7c-f7e596407eb7
 
 ### GET all movies for one genre
-GET http://localhost:3000/movies?genre=ActiOn
+GET http://localhost:4000/movies?genre=ActiOn
 
 ### POST a movie
-POST http://localhost:3000/movies
+POST http://localhost:4000/movies
 Content-Type: application/json
 
 {
@@ -29,7 +29,7 @@ Content-Type: application/json
 }
 
 ### PATCH update a movie, une part of the movie
-PATCH http://localhost:3000/movies/08531012-36be-11f0-a909-80327acf9eaa
+PATCH http://localhost:4000/movies/08531012-36be-11f0-a909-80327acf9eaa
 Content-Type: application/json
 
 {
@@ -44,4 +44,4 @@ Content-Type: application/json
 }
 
 ### DELETE a movie for id
-DELETE http://localhost:3000/movies/020e815c-376b-11f0-ad89-8debf50a5072
+DELETE http://localhost:4000/movies/020e815c-376b-11f0-ad89-8debf50a5072
