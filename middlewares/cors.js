@@ -4,6 +4,7 @@ import cors from 'cors'
 // sin embargo tiene opciones para limitarlo
 
 const ACCEPTED_ORIGINS = [
+  'https://movies-api-rest-owf5.onrender.com/',
   'http://localhost:10000',
   'http://localhost:8080',
   'http://localhost:4000',
