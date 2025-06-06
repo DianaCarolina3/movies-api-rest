@@ -16,11 +16,11 @@ Content-Type: application/json
 
 {
   "sql": "SELECT * FROM users",
-  "title": "Top Gun: Maverick",
+  "title": "Movie test for delete",
   "year": 2021,
   "director": "Joseph Kosinski",
   "duration": 171,
-  "poster": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTb0I81g39NGDx0sKP5F_DECCsdzoOwh9MVUD0PLSVvQpf3rpIM",
+  "poster": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTb0I81g39NGDx0sKP5F_DECCsdzoOwh9MVUD0PLSVvQpf3rpI",
   "genre": [
     "Drama",
     "Action",
