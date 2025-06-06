@@ -1,108 +1,65 @@
--- MySQL dump 10.13  Distrib 9.3.0, for macos15 (arm64)
---
--- Host: localhost    Database: moviesdb
--- ------------------------------------------------------
--- Server version	9.3.0
+-- Crear base de datos
+CREATE DATABASE IF NOT EXISTS moviesdb;
+USE moviesdb;
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8mb4 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+-- Crear tabla de pel√≠culas
+CREATE TABLE IF NOT EXISTS movies (
+                                      id       BINARY(16) PRIMARY KEY DEFAULT (UUID_TO_BIN(UUID())),
+                                      title    VARCHAR(255) NOT NULL,
+                                      year     INT NOT NULL,
+                                      director VARCHAR(255) NOT NULL,
+                                      duration INT NOT NULL,
+                                      poster   TEXT,
+                                      rate     DECIMAL(2,1) UNSIGNED NOT NULL
+);
 
---
--- Table structure for table `genres`
---
+-- Crear tabla de g√©neros
+CREATE TABLE IF NOT EXISTS genres (
+                                      id   BINARY(16) PRIMARY KEY DEFAULT (UUID_TO_BIN(UUID())),
+                                      name VARCHAR(255) NOT NULL UNIQUE
+);
 
-DROP TABLE IF EXISTS `genres`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `genres` (
-  `id` binary(16) NOT NULL DEFAULT (uuid_to_bin(uuid())),
-  `name` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+-- Crear tabla intermedia movie_genres
+CREATE TABLE IF NOT EXISTS movie_genres (
+                                            movie_id BINARY(16),
+                                            genre_id BINARY(16),
+                                            PRIMARY KEY (movie_id, genre_id),
+                                            FOREIGN KEY (movie_id) REFERENCES movies(id) ON DELETE CASCADE ON UPDATE CASCADE,
+                                            FOREIGN KEY (genre_id) REFERENCES genres(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
 
---
--- Dumping data for table `genres`
---
+-- Insertar g√©neros
+INSERT INTO genres (name)
+VALUES ('Drama'),
+       ('Action'),
+       ('Crime'),
+       ('Adventure'),
+       ('Sci-Fi'),
+       ('Romance'),
+       ('Animation'),
+       ('Biography'),
+       ('Comedy'),
+       ('Horror'),
+       ('Thriller');
 
-LOCK TABLES `genres` WRITE;
-/*!40000 ALTER TABLE `genres` DISABLE KEYS */;
-INSERT INTO `genres` VALUES (_binary 'ë\‡ùû4\’\Ω|\˜\Âñ@~∑','Action'),(_binary 'ë\‡†F4\’\Ω|\˜\Âñ@~∑','Adventure'),(_binary 'ë‡°∏4\’\Ω|\˜\Âñ@~∑','Animation'),(_binary 'ë\‡¢b4\’\Ω|\˜\Âñ@~∑','Biography'),(_binary 's5˙&7v≠âç\Î\ı\nPr','Comedy'),(_binary 'ë\‡ü∫4\’\Ω|\˜\Âñ@~∑','Crime'),(_binary 'ë\‡m\Z4\’\Ω|\˜\Âñ@~∑','Drama'),(_binary 'ë\‡¢\‰4\’\Ω|\˜\Âñ@~∑','Fantasy'),(_binary 's7&¯7v≠âç\Î\ı\nPr','Horror'),(_binary 'ë\‡°@4\’\Ω|\˜\Âñ@~∑','Romance'),(_binary 'ë\‡†\»4\’\Ω|\˜\Âñ@~∑','Sci-Fi'),(_binary 's7\'é7v≠âç\Î\ı\nPr','Thriller');
-/*!40000 ALTER TABLE `genres` ENABLE KEYS */;
-UNLOCK TABLES;
+-- Insertar pel√≠culas
+INSERT INTO movies (id, title, year, director, duration, poster, rate)
+VALUES
+    (UUID_TO_BIN(UUID()), 'Avatar', 2009, 'James Cameron', 162, 'https://i.etsystatic.com/35681979/r/il/dfe3ba/3957859451/il_fullxfull.3957859451_h27r.jpg', 7.8),
+    (UUID_TO_BIN(UUID()), 'The Social Network', 2010, 'David Fincher', 120, 'https://i.pinimg.com/originals/7e/37/b9/7e37b994b613e94cba64f307b1983e39.jpg', 7.7),
+    (UUID_TO_BIN(UUID()), 'Titanic', 1997, 'James Cameron', 195, 'https://i.pinimg.com/originals/42/42/65/4242658e6f1b0d6322a4a93e0383108b.png', 7.8),
+    (UUID_TO_BIN(UUID()), 'Jurassic Park', 1993, 'Steven Spielberg', 127, 'https://vice-press.com/cdn/shop/products/Jurassic-Park-Editions-poster-florey.jpg?v=1654518755&width=1024', 8.1),
+    (UUID_TO_BIN(UUID()), 'The Avengers', 2012, 'Joss Whedon', 143, 'https://img.fruugo.com/product/7/41/14532417_max.jpg', 8.0),
+    (UUID_TO_BIN(UUID()), 'The Lion King', 1994, 'Roger Allers, Rob Minkoff', 88, 'https://m.media-amazon.com/images/I/81BMmrwSFOL._AC_UF1000,1000_QL80_.jpg', 8.5),
+    (UUID_TO_BIN(UUID()), 'The Lord of the Rings: The Return of the King', 2003, 'Peter Jackson', 201, 'https://i.ebayimg.com/images/g/0hoAAOSwe7peaMLW/s-l1600.jpg', 8.9);
 
---
--- Table structure for table `movie_genres`
---
-
-DROP TABLE IF EXISTS `movie_genres`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `movie_genres` (
-  `movie_id` binary(16) NOT NULL,
-  `genre_id` binary(16) NOT NULL,
-  PRIMARY KEY (`movie_id`,`genre_id`),
-  KEY `genre_id` (`genre_id`),
-  CONSTRAINT `movie_genres_ibfk_1` FOREIGN KEY (`movie_id`) REFERENCES `movies` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `movie_genres_ibfk_2` FOREIGN KEY (`genre_id`) REFERENCES `genres` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `movie_genres`
---
-
-LOCK TABLES `movie_genres` WRITE;
-/*!40000 ALTER TABLE `movie_genres` DISABLE KEYS */;
-INSERT INTO `movie_genres` VALUES (_binary 'S6æ\©	Ä2zœû™',_binary 'ë\‡m\Z4\’\Ω|\˜\Âñ@~∑'),(_binary '\ˆÑ6±\©	Ä2zœû™',_binary 'ë\‡m\Z4\’\Ω|\˜\Âñ@~∑'),(_binary 'ë\„e4\’\Ω|\˜\Âñ@~∑',_binary 'ë\‡m\Z4\’\Ω|\˜\Âñ@~∑'),(_binary 'ó£L87v≠âç\Î\ı\nPr',_binary 'ë\‡m\Z4\’\Ω|\˜\Âñ@~∑'),(_binary 'S6æ\©	Ä2zœû™',_binary 'ë\‡ùû4\’\Ω|\˜\Âñ@~∑'),(_binary '\ˆÑ6±\©	Ä2zœû™',_binary 'ë\‡ùû4\’\Ω|\˜\Âñ@~∑'),(_binary 'ë\„R†4\’\Ω|\˜\Âñ@~∑',_binary 'ë\‡ùû4\’\Ω|\˜\Âñ@~∑'),(_binary 'ë\„fæ4\’\Ω|\˜\Âñ@~∑',_binary 'ë\‡ùû4\’\Ω|\˜\Âñ@~∑'),(_binary 'ó£L87v≠âç\Î\ı\nPr',_binary 'ë\‡ùû4\’\Ω|\˜\Âñ@~∑'),(_binary 'S6æ\©	Ä2zœû™',_binary 'ë\‡ü∫4\’\Ω|\˜\Âñ@~∑'),(_binary '\ˆÑ6±\©	Ä2zœû™',_binary 'ë\‡ü∫4\’\Ω|\˜\Âñ@~∑'),(_binary 'ë\„f<4\’\Ω|\˜\Âñ@~∑',_binary 'ë\‡†F4\’\Ω|\˜\Âñ@~∑'),(_binary 'ë\„gê4\’\Ω|\˜\Âñ@~∑',_binary 'ë\‡†F4\’\Ω|\˜\Âñ@~∑'),(_binary 'ó£L87v≠âç\Î\ı\nPr',_binary 'ë\‡°@4\’\Ω|\˜\Âñ@~∑'),(_binary 'ë\„g,4\’\Ω|\˜\Âñ@~∑',_binary 'ë‡°∏4\’\Ω|\˜\Âñ@~∑'),(_binary 'ë\„a™4\’\Ω|\˜\Âñ@~∑',_binary 'ë\‡¢b4\’\Ω|\˜\Âñ@~∑');
-/*!40000 ALTER TABLE `movie_genres` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `movies`
---
-
-DROP TABLE IF EXISTS `movies`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `movies` (
-  `id` binary(16) NOT NULL DEFAULT (uuid_to_bin(uuid())),
-  `title` varchar(255) NOT NULL,
-  `year` int NOT NULL,
-  `director` varchar(255) NOT NULL,
-  `duration` int NOT NULL,
-  `poster` text,
-  `rate` decimal(2,1) unsigned NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `movies`
---
-
-LOCK TABLES `movies` WRITE;
-/*!40000 ALTER TABLE `movies` DISABLE KEYS */;
-INSERT INTO `movies` VALUES (_binary 'S6æ\©	Ä2zœû™','The Hello123',1995,'Francis Ford Coppola',175,'https://img.fruugo.com/product/4/49/14441494      sd  sydsss      ',5.0),(_binary '\ˆÑ6±\©	Ä2zœû™','The Godfather',1972,'Francis Ford Coppola',175,'https://img.fruugo.com/product/4/49/14441494_max.jpg',5.0),(_binary 'ë\„R†4\’\Ω|\˜\Âñ@~∑','Avatar',2009,'James Cameron',162,'https://i.etsystatic.com/35681979/r/il/dfe3ba/3957859451/il_fullxfull.3957859451_h27r.jpg',7.8),(_binary 'ë\„a™4\’\Ω|\˜\Âñ@~∑','The Social Network',2010,'David Fincher',120,'https://i.pinimg.com/originals/7e/37/b9/7e37b994b613e94cba64f307b1983e39.jpg',7.7),(_binary 'ë\„e4\’\Ω|\˜\Âñ@~∑','Titanic',1997,'James Cameron',195,'https://i.pinimg.com/originals/42/42/65/4242658e6f1b0d6322a4a93e0383108b.png',7.8),(_binary 'ë\„f<4\’\Ω|\˜\Âñ@~∑','Jurassic Park',1993,'Steven Spielberg',127,'https://vice-press.com/cdn/shop/products/Jurassic-Park-Editions-poster-florey.jpg?v=1654518755&width=1024',8.1),(_binary 'ë\„fæ4\’\Ω|\˜\Âñ@~∑','The Avengers',2012,'Joss Whedon',143,'https://img.fruugo.com/product/7/41/14532417_max.jpg',8.0),(_binary 'ë\„g,4\’\Ω|\˜\Âñ@~∑','The Lion King',1994,'Roger Allers, Rob Minkoff',88,'https://m.media-amazon.com/images/I/81BMmrwSFOL._AC_UF1000,1000_QL80_.jpg',8.5),(_binary 'ë\„gê4\’\Ω|\˜\Âñ@~∑','The Lord of the Rings: The Return of the King',2003,'Peter Jackson',201,'https://i.ebayimg.com/images/g/0hoAAOSwe7peaMLW/s-l1600.jpg',8.9),(_binary 'ó£L87v≠âç\Î\ı\nPr','Top Gun: Maverick',2022,'Joseph Kosinski',171,'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTb0I81g39NGDx0sKP5F_DECCsdzoOwh9MVUD0PLSVvQpf3rpIM',5.0);
-/*!40000 ALTER TABLE `movies` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2025-05-27 18:13:15
+-- Insertar relaciones movie-genres
+INSERT INTO movie_genres (movie_id, genre_id)
+VALUES
+    ((SELECT id FROM movies WHERE title = 'Avatar'), (SELECT id FROM genres WHERE name = 'Action')),
+    ((SELECT id FROM movies WHERE title = 'The Social Network'), (SELECT id FROM genres WHERE name = 'Biography')),
+    ((SELECT id FROM movies WHERE title = 'Titanic'), (SELECT id FROM genres WHERE name = 'Drama')),
+    ((SELECT id FROM movies WHERE title = 'Jurassic Park'), (SELECT id FROM genres WHERE name = 'Adventure')),
+    ((SELECT id FROM movies WHERE title = 'The Avengers'), (SELECT id FROM genres WHERE name = 'Action')),
+    ((SELECT id FROM movies WHERE title = 'The Lion King'), (SELECT id FROM genres WHERE name = 'Animation')),
+    ((SELECT id FROM movies WHERE title = 'The Lord of the Rings: The Return of the King'), (SELECT id FROM genres WHERE name = 'Adventure'));
