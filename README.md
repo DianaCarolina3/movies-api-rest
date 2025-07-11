@@ -1,3 +1,3 @@
 # movies-api-rest
 
-movies-api-rest
+NodeJS, Render, Railway, Zod, Mysql2
