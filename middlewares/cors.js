@@ -3,6 +3,11 @@ import cors from 'cors'
 // el paquete cors soluciona en todos los origins '*'
 // sin embargo tiene opciones para limitarlo
 
+// Debemos configurar cors si:
+// Hacemos fetch desde el navegador
+// El cliente y el servidor están en diferentes dominios o puertos 
+// Si aceptamos solicitudes desde otros origenes
+
 const ACCEPTED_ORIGINS = [
   'https://movies-api-rest-owf5.onrender.com',
   'http://localhost:10000',
