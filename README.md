@@ -3,11 +3,12 @@
 ## Description
 
 Arquitectura MVC (Modelo-Vista-Controlador)
-NodeJS, Zod, Mysql2 desplegado en Render y db en Railway.
+NodeJS, Express, Zod, Mysql2 desplegado en Render y db en Railway.
 
 ## Tools
 
 - Node JS
+- Express
 - Zod
 - MySQL
 - HTML
